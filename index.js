@@ -17,7 +17,14 @@ async function queryDatabase() {
   });
   return response;
 }
-
+module.exports = async (req, res) => {
+  try {
+    const response = await queryDatabase();
+    res.json(response);
+  } catch (error) {
+    res.status(500).json({ error: error.toString() });
+  }
+};
 // app.use('/api', createProxyMiddleware({ 
 //   target: 'https://api.notion.com', 
 //   changeOrigin: true,
